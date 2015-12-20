@@ -1,0 +1,5 @@
+export default {
+    MOVIE_ADD: 'MOVIE_ADD',
+    MOVIE_ADDMANY: 'MOVIE_ADDMANY',
+    MOVIE_RESET: 'MOVIE_RESET',
+}
