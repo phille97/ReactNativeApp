@@ -55,9 +55,8 @@ class MovieList extends React.Component {
         return (
             <View style={styles.container}>
                 <Image
-                    source={{uri: movie.posters.thumbnail}}
-                    style={styles.thumbnail}
-                />
+                    source={{uri: movie.posters.thumbnail  }}
+                    style={styles.thumbnail}/>
                 <View style={styles.rightContainer}>
                     <Text style={styles.title}>{movie.title}</Text>
                     <Text style={styles.year}>{movie.year}</Text>

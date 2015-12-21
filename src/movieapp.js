@@ -1,17 +1,25 @@
-var React = require('react-native');
-var {ScrollView} = React;
+const React = require('react-native');
+const {ScrollView, Text} = React;
 
-var MovieActions = require('./flux/actions/movie_actions.js').default
-var MovieList = require('./movie_list.js')
-var MovieSearchBar = require('./movie_search.js')
+const MovieActions = require('./flux/actions/movie_actions.js').default
+const MovieList = require('./movie_list.js')
+const MovieSearchBar = require('./movie_search.js')
+
+const OpenMoviesAPI = require('./apis/openmovies.js').default
 
 
 class MovieApp extends React.Component {
 
+    constructor (props) {
+        super(props)
+        this.msb = new MovieSearchBar()
+        this.msb.addListener('search', query => OpenMoviesAPI.search(query))
+    }
+
     render () {
         return (
             <ScrollView>
-                <MovieSearchBar/>
+                {this.msb.render()}
                 <MovieList/>
             </ScrollView>
         )

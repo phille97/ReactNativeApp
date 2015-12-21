@@ -7,35 +7,57 @@ var {
     View
 } = React;
 
-var MovieActions = require('./flux/actions/movie_actions.js').default
-
 
 class MovieSearch extends React.Component {
 
     constructor (props) {
         super(props)
+        this.listeners = new Map()
+    }
+
+    addListener(label, callback) {
+        this.listeners.has(label) || this.listeners.set(label, []);
+        this.listeners.get(label).push(callback);
+    }
+
+    removeListener(label, callback) {
+        let listeners = this.listeners.get(label),
+            index;
+
+        if (listeners && listeners.length) {
+            index = listeners.reduce((i, listener, index) => {
+                return ((typeof listener == 'function' || false) && listener === callback) ?
+                    i = index :
+                    i;
+            }, -1);
+
+            if (index > -1) {
+                listeners.splice(index, 1);
+                this.listeners.set(label, listeners);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    emit(label, ...args) {
+        let listeners = this.listeners.get(label);
+
+        if (listeners && listeners.length) {
+            listeners.forEach((listener) => {
+                listener(...args); 
+            });
+            return true;
+        }
+        return false;
     }
 
     _onTextChange (text) {
-        if(text.length >= 3) {
-            this.doSearch(text)
-        }
+        this.doSearch(text) 
     }
 
     doSearch(text) {
-        // TODO Move this to a separate class
-        MovieActions.reset()
-        let API_URL = 'http://www.omdbapi.com/?'
-        let REQUEST_URL = `${API_URL}s=${text}&plot=short&r=json`
-        fetch(REQUEST_URL)
-            .then((response) => response.json())
-            .then((responseData) => {
-                MovieActions.addMany(
-                    Array.prototype.push.call(responseData.Search).map( movie => {
-                        return {title: movie.Title, year: movie.Year, posters: {thumbnail: movie.Poster}}
-                    })
-                )
-            })
+        this.emit('search', text)
     }
 
     render () {
