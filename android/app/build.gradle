@@ -54,7 +54,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.reactnativeapp"
+        applicationId "com.djonker"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -63,16 +63,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-    
     signingConfigs {
         release {
-            storeFile file(ReactNativeApp_RELEASE_STORE_FILE)
-            storePassword ReactNativeApp_RELEASE_STORE_PASSWORD
-            keyAlias ReactNativeApp_RELEASE_KEY_ALIAS
-            keyPassword ReactNativeApp_RELEASE_KEY_PASSWORD
+            storeFile file(DJONKER_RELEASE_STORE_FILE)
+            storePassword DJONKER_RELEASE_STORE_PASSWORD
+            keyAlias DJONKER_RELEASE_KEY_ALIAS
+            keyPassword DJONKER_RELEASE_KEY_PASSWORD
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false  // Set this to true to enable Proguard

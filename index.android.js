@@ -4,7 +4,7 @@ var {AppRegistry} = React
 var MovieApp = require('./src/movieapp.js')
 
 
-class ReactNativeApp extends React.Component {
+class dJonker extends React.Component {
 
     render () {
         return (
@@ -14,4 +14,4 @@ class ReactNativeApp extends React.Component {
 
 }
 
-AppRegistry.registerComponent('ReactNativeApp', () => ReactNativeApp)
+AppRegistry.registerComponent('dJonker', () => dJonker)
